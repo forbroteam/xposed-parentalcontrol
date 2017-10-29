@@ -18,8 +18,8 @@ import static de.robv.android.xposed.XposedHelpers.findAndHookConstructor;
 
 public class LoadHook implements IXposedHookLoadPackage {
 
-    // TODO: add a specific application that should be tracked
     String targetPackage = "com.android.chrome";
+    String urlToProtectFrom = "youtube";
     String packageName = null;
     boolean forceClose = false;
 
@@ -35,11 +35,9 @@ public class LoadHook implements IXposedHookLoadPackage {
                 new XC_MethodHook() {
                     @Override
                     protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                        XposedBridge.log("ParentalControl: " + packageName + " URL param 0: " + param.args[0]);
                         String url = (param != null && param.args.length > 0) ? ((String) param.args[0]) : null;
-                        XposedBridge.log("ParentalControl: ");
                         XposedBridge.log("ParentalControl: " + packageName + " URL: " + url);
-                        if (url.toString().contains("youtube")) {
+                        if (url.toString().contains(urlToProtectFrom)) {
                             forceClose = true;
                         }
                     }
@@ -52,11 +50,15 @@ public class LoadHook implements IXposedHookLoadPackage {
                                     .show();
                             forceClose = false;
 
-                            ActivityManager am = (ActivityManager) AndroidAppHelper
-                                    .currentApplication().getSystemService(Context.ACTIVITY_SERVICE);
-                            am.killBackgroundProcesses(targetPackage);
+                            terminateApplication();
                         }
                     }
                 });
+    }
+
+    private void terminateApplication() {
+        ActivityManager am = (ActivityManager) AndroidAppHelper
+                .currentApplication().getSystemService(Context.ACTIVITY_SERVICE);
+        am.killBackgroundProcesses(targetPackage);
     }
 }
