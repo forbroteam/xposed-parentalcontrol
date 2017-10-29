@@ -73,4 +73,3 @@ public class LoadHook implements IXposedHookLoadPackage {
         }, milliseconds);
     }
 }
-}
