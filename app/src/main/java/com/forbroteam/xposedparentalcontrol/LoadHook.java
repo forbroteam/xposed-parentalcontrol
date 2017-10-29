@@ -3,6 +3,7 @@ package com.forbroteam.xposedparentalcontrol;
 import android.app.ActivityManager;
 import android.app.AndroidAppHelper;
 import android.content.Context;
+import android.os.Handler;
 import android.widget.Toast;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
@@ -50,15 +51,26 @@ public class LoadHook implements IXposedHookLoadPackage {
                                     .show();
                             forceClose = false;
 
-                            terminateApplication();
+                            terminateApplication(5000);
                         }
                     }
                 });
     }
 
-    private void terminateApplication() {
-        ActivityManager am = (ActivityManager) AndroidAppHelper
-                .currentApplication().getSystemService(Context.ACTIVITY_SERVICE);
-        am.killBackgroundProcesses(targetPackage);
+    private void terminateApplication(int milliseconds) {
+        if (milliseconds < 0) {
+            milliseconds = 0;
+        }
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                ActivityManager am = (ActivityManager) AndroidAppHelper
+                        .currentApplication().getSystemService(Context.ACTIVITY_SERVICE);
+                am.killBackgroundProcesses(targetPackage);
+            }
+        }, milliseconds);
     }
+}
 }
