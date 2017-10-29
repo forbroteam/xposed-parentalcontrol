@@ -8,6 +8,7 @@
 - Whitelist apps that can be used all the time, everything else is entertainment <!-- .element: class="fragment" -->
 - Disable accessing the app and uninstalling it or the Xposed Installer <!-- .element: class="fragment" -->
 
+---
 ## Screens
 ![screen1](screesnhot1.png)
 ![screen2](screenshot2.png)
