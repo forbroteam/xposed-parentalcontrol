@@ -9,5 +9,5 @@
 - Disable accessing the app and uninstalling it or the Xposed Installer <!-- .element: class="fragment" -->
 
 ## Screens
-![screen1](screenshot1.png)
+![screen1](screesnhot1.png)
 ![screen2](screenshot2.png)
