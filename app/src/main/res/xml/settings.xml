@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="Parental Settings">
+        <EditTextPreference
+            android:key="whitelist_entry"
+            android:title="To whitelist"
+            android:summary="Add what to whitelist"
+            />
+
+        <ListPreference
+            android:key="whitelisted_stuff"
+            android:title="Whitelisted"
+            android:dialogTitle="Whitelisted web pages"
+            android:summary="Webpages your child can see"
+            />
+
+        <EditTextPreference
+            android:key="entertainment_limit"
+            android:title="Entertainment limit"
+            android:summary="How long can child use entertainment apps"
+            />
+    </PreferenceCategory>
+</PreferenceScreen>

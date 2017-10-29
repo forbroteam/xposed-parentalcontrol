@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Xposed module: Parental control</string>
+    <string name="btn_settings">Settings</string>
 </resources>
